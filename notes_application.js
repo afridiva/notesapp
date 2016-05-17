@@ -6,28 +6,39 @@ function NotesApplication(author) {
 	}
 	this.listNotes = function() {
 		var noteList = "";
-		for(var i = 0; i < notes.length; i++){
-			noteList += "Note ID: " + i + "\n" + this.notes[i] + "\n\nBy Author " + this.author + "\n\n";
+		for(var i = 0; i < this.notes.length; i++){
+			noteList += "Note ID: " + i + "<br>" + this.notes[i] + "<br><br>By Author " + this.author + "<br><br>";
 		}
-		return noteList;
+		document.write(noteList);
 	}
 	this.get = function(note_id) {
 		return this.notes[note_id];
 	}
 	this.search = function(search_text) {
-		var resultList = "Showing results for search ‘<" + search_text + ">’\n\n";
-		for(var i = 0; i < notes.length; i++){
-			if(notes[i].includes(search_text))
+		var resultList = "Showing results for search ‘<" + search_text + ">’<br><br>";
+		for(var i = 0; i < this.notes.length; i++){
+			if(this.notes[i].includes(search_text))
 			{
-				resultList += "Note ID: " + i + "\n" + this.notes[i] + "\n\nBy Author " + this.author + "\n\n";
+				resultList += "Note ID: " + i + "<br>" + this.notes[i] + "<br><br>By Author " + this.author + "<br><br>";
 			}
 		}
 		return resultList;
 	}
 	this.delete = function(note_id) {
-		this.notes.splice(notes[note_id], 1);
+		this.notes.splice(note_id, 1);
 	}
-	
+	this.edit = function(note_id, new_content) {
+		this.notes[note_id] = new_content;
+	}
 }
 
-var notesApplication = new NotesApplication();
+var notesApplication = new NotesApplication('Chineze Nwosu');
+notesApplication.create('hiiiiiiiii this is me');
+notesApplication.create('hiiiiiiiii this is you');
+
+notesApplication.listNotes();
+notesApplication.delete(0);
+notesApplication.listNotes();
+notesApplication.edit(0, 'naaa');
+notesApplication.listNotes();
+
