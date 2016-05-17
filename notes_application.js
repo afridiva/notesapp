@@ -24,6 +24,9 @@ function NotesApplication(author) {
 		}
 		return resultList;
 	}
+	this.delete = function(note_id) {
+		this.notes.splice(notes[note_id], 1);
+	}
 	
 }
 
