@@ -15,14 +15,16 @@ function NotesApplication(author) {
 		return this.notes[note_id];
 	}
 	this.search = function(search_text) {
-		var resultList = "Showing results for search ‘<" + search_text + ">’<br><br>";
+		var resultList = "Showing results for search '&lt;" + search_text + "&gt;'<br><br>";
+		var empty = true;
 		for(var i = 0; i < this.notes.length; i++){
 			if(this.notes[i].includes(search_text))
 			{
 				resultList += "Note ID: " + i + "<br>" + this.notes[i] + "<br><br>By Author " + this.author + "<br><br>";
+				empty = false;
 			}
 		}
-		return resultList;
+		return empty == true ? "No results found for search '&lt;" + search_text + "&gt;'<br><br>" : resultList ;
 	}
 	this.delete = function(note_id) {
 		this.notes.splice(note_id, 1);
@@ -33,12 +35,12 @@ function NotesApplication(author) {
 }
 
 var notesApplication = new NotesApplication('Chineze Nwosu');
-notesApplication.create('hiiiiiiiii this is me');
-notesApplication.create('hiiiiiiiii this is you');
-
+notesApplication.create('This is the first note');
+notesApplication.create('This is the second note');
 notesApplication.listNotes();
+document.getElementById('note1').innerHTML = notesApplication.search('you');
+notesApplication.edit(1, "This is the first edit replacing the 0 index note");
 notesApplication.delete(0);
 notesApplication.listNotes();
-notesApplication.edit(0, 'naaa');
-notesApplication.listNotes();
+document.getElementById('note2').innerHTML = notesApplication.get(0);
 
