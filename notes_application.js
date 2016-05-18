@@ -64,12 +64,13 @@ function NotesApplication(author) {
 
 var notesApplication = new NotesApplication('Chineze Nwosu');
 // Tests
-notesApplication.create('This is the first note');
-notesApplication.create('This is the second note');
-notesApplication.listNotes();
-document.getElementById('test1').innerHTML = notesApplication.search('first');
-document.getElementById('test2').innerHTML = notesApplication.delete(0);
-document.getElementById('test2').innerHTML = notesApplication.get(0);
-document.getElementById('test3').innerHTML = notesApplication.edit(1, "This is the first edit replacing the note at index 1");
-notesApplication.listNotes();
+// var notesApplication = new NotesApplication('Chineze Nwosu');
+// notesApplication.create('This is the first note');
+// notesApplication.create('This is the second note');
+// notesApplication.listNotes();
+// document.getElementById('test1').innerHTML = notesApplication.search('first');
+// document.getElementById('test2').innerHTML = notesApplication.delete(0);
+// document.getElementById('test2').innerHTML = notesApplication.get(0);
+// document.getElementById('test3').innerHTML = notesApplication.edit(1, "This is the first edit replacing the note at index 1");
+// notesApplication.listNotes();
 
