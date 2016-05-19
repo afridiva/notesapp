@@ -20,10 +20,24 @@ describe('Notes Application', function(){
 		expect(notesApplication.hasOwnProperty('edit')).toBe(true);
 	});
 
-	// Check if author exists
-	it('should return No author specified', function(){
-		// notesApplication = new NotesApplication();
-		expect(notesApplication.author).toBeDefined();
+	// Check if properties are functions
+	it('should have create property', function(){
+		expect(typeof notesApplication.create).toBe(typeof (function(){}));
+	});
+	it('should have listNotes property', function(){
+		expect(typeof notesApplication.listNotes).toBe(typeof (function(){}));
+	});
+	it('should have get property', function(){
+		expect(typeof notesApplication.get).toBe(typeof (function(){}));
+	});
+	it('should have search property', function(){
+		expect(typeof notesApplication.delete).toBe(typeof (function(){}));
+	});
+	it('should have delete property', function(){
+		expect(typeof notesApplication.edit).toBe(typeof (function(){}));
+	});
+	it('should have edit property', function(){
+		expect(typeof notesApplication.search).toBe(typeof (function(){}));
 	});
 
 	// check if functions return correct output
@@ -48,13 +62,13 @@ describe('Notes Application', function(){
 	it('should give an error message on get invalid note_id', function(){
 		notesApplication.create();
 		// For get operation
-		expect(notesApplication.get()).toMatch(/is not a number$/);
+		expect(notesApplication.get()).toBe("No note id included");
 
 		// For edit operation
-		expect(notesApplication.edit()).toMatch(/is not a number$/);
+		expect(notesApplication.edit()).toBe("No note id included");
 		
 		// For delete operation
-		expect(notesApplication.delete()).toMatch(/is not a number$/);
+		expect(notesApplication.delete()).toBe("No note id included");
 	});
 
 	it('should give an error message on non_existent note_id', function(){
@@ -65,4 +79,44 @@ describe('Notes Application', function(){
 		expect(notesApplication.delete(1)).toMatch(/^Note not found for/);
 	});
 
+	it('should return search results', function(){
+		expect(notesApplication.search()).toBe("Showing all results<br><br>" + notesApplication.listNotes());
+		expect(notesApplication.search('')).toBe("Showing all results<br><br>" + notesApplication.listNotes());
+		expect(notesApplication.search('note')).toMatch(/^Showing results for/);
+	});
+
+	it('should return feedback', function(){
+		expect(typeof notesApplication.listNotes()).toBe(typeof "a");
+		expect(typeof notesApplication.create()).toBe(typeof "a");
+		expect(typeof notesApplication.edit()).toBe(typeof "a");
+		expect(typeof notesApplication.delete()).toBe(typeof "a");
+		expect(typeof notesApplication.get()).toBe(typeof "a");
+		expect(typeof notesApplication.search()).toBe(typeof "a");
+	});
+
+	it('should return note content on get function', function(){
+		expect(notesApplication.get(0)).toBe(notesApplication.notes[0]);
+	});
+
+	//Test additional functions added
+	it('should return true if valid', function(){
+		// validateId function
+		expect(notesApplication.validateId(0)).toBeTruthy();
+	});
+
+	it('should return no note included if note id is undefined', function(){
+		// validateId function
+		expect(notesApplication.validateId()).toBe("No note id included");
+	});
+
+	it('should return formatted string', function(){
+		// formatNote function
+		expect(typeof notesApplication.formatNote(0)).toBe(typeof "a");
+		expect(notesApplication.formatNote(0)).toMatch(/^Note ID:/);
+	});
+
+	it('should return nothing if note id is undefined', function(){
+		// formatNote function
+		expect(notesApplication.formatNote()).toBeUndefined();
+	});
 });
