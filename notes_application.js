@@ -2,7 +2,13 @@ function NotesApplication(author) {
 	this.author = author;
 	this.notes = [];
 	this.create = function(note_content) {
-		this.notes.push(note_content);
+		if(note_content) {
+			this.notes.push(note_content);
+			return "New note has been created";
+		}
+		else {
+			return "Note was not created because note content is empty";
+		}
 	}
 	this.listNotes = function() {
 		var noteList = "";
@@ -44,33 +50,44 @@ function NotesApplication(author) {
 		}
 	}
 	this.edit = function(note_id, new_content) {
-		if (this.validate(note_id) == true) {
+		if (this.validate(note_id) == true && new_content) {
 			this.notes[note_id] = new_content;
 			return "Note at index " + note_id + " has been edited";
 		}
 		else {
-			return this.validate(note_id, 'edit');
+			if(this.validate(note_id) != true)
+			{
+				return this.validate(note_id, 'edit');
+			}
+			return "Note was not edited because note content is empty";
 		}
 	}
 	// Validate the note_id by checking if it an index of the note list
 	this.validate = function(note_id, operation) {
-		if (note_id <= (this.notes.length - 1))
-		{
+		if(typeof note_id == typeof 1 && note_id <= (this.notes.length - 1)) {
 			return true;
 		}
-		return "Note not found for " + operation + " operation at index " + note_id;
+		else {
+			if(typeof note_id != typeof 1)
+			{
+				return note_id + " is not a number";
+			}
+			else {
+				return "Note not found for " + operation + " operation at index " + note_id;
+			}
+		}
 	}
 }
 
 var notesApplication = new NotesApplication('Chineze Nwosu');
 // Tests
 // var notesApplication = new NotesApplication('Chineze Nwosu');
-// notesApplication.create('This is the first note');
-// notesApplication.create('This is the second note');
+// document.getElementById('test1').innerHTML = notesApplication.create();
+// document.getElementById('test1').innerHTML = notesApplication.create('fffdgd');
 // notesApplication.listNotes();
 // document.getElementById('test1').innerHTML = notesApplication.search('first');
 // document.getElementById('test2').innerHTML = notesApplication.delete(0);
-// document.getElementById('test2').innerHTML = notesApplication.get(0);
+// document.getElementById('test2').innerHTML = notesApplication.get('f');
 // document.getElementById('test3').innerHTML = notesApplication.edit(1, "This is the first edit replacing the note at index 1");
 // notesApplication.listNotes();
 
